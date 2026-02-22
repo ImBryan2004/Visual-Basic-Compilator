@@ -2,7 +2,7 @@ package compilador;
 
 import java.util.ArrayList;
 import java.util.List;
-/**
+/*
   Analizador Léxico.
   
   Recorre el código fuente línea por línea y aplica
@@ -20,6 +20,7 @@ public class AnalizadorLexico {
     private ValidadorWriteLine validadorWriteLine;
     private ValidadorIdentificadores validadorIdentificadores;
     private ValidadorComentarios validadorComentarios;
+    private ValidadorAsignaciones validadorAsignaciones;
 
     /**
       Constructor del analizador léxico
@@ -37,6 +38,7 @@ public class AnalizadorLexico {
         this.validadorWriteLine = new ValidadorWriteLine();
         this.validadorIdentificadores = new ValidadorIdentificadores();
         this.validadorComentarios = new ValidadorComentarios();
+        this.validadorAsignaciones = new ValidadorAsignaciones(tablaSimbolos);
     }
 
     /**
@@ -82,6 +84,11 @@ public class AnalizadorLexico {
              
             errores.addAll(
                     validadorWriteLine.validar(linea, numeroLinea)
+            );
+            
+            // PASO 5: Validar asingaciones
+            errores.addAll(
+                    validadorAsignaciones.validar(linea, numeroLinea)
             );
             
             // End Module

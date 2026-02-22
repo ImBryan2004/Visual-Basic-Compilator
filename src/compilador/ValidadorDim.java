@@ -31,6 +31,8 @@ public class ValidadorDim {
     public List<ErrorLexico> validar(String linea, int numeroLinea) {
 
         List<ErrorLexico> errores = new ArrayList<>();
+
+        String original = linea;
         String lineaLimpia = linea.trim();
 
         // Solo analizamos líneas que inician con Dim
@@ -41,7 +43,7 @@ public class ValidadorDim {
         /*
           PASO 1
           Dim debe aparecer después de Module
-         */
+        */
         if (!validadorModule.seDeclaroModule()) {
             errores.add(new ErrorLexico(
                     500,
@@ -53,42 +55,46 @@ public class ValidadorDim {
 
         /*
           PASO 2
-          Extraer partes con REGEX el cual es robusto a espacios
-          Formato: Dim nombre As Tipo significa que = valor opcional
-         */
-        Pattern pattern = Pattern.compile(
-                "^Dim\\s+(.+)$",
-                Pattern.CASE_INSENSITIVE
-        );
+          Normalizar espacios alrededor del =
+        */
+        String normalizada = lineaLimpia.replaceAll("\\s*=\\s*", "=");
 
-        Matcher matcher = pattern.matcher(lineaLimpia);
+        /*
+          PASO 3
+          Separar parte izquierda y derecha
+        */
+        String izquierda;
+        String derecha = null;
 
-        if (!matcher.find()) {
-            return errores;
+        if (normalizada.contains("=")) {
+            String[] partes = normalizada.split("=", 2);
+            izquierda = partes[0].trim();
+            derecha = partes[1].trim();
+        } else {
+            izquierda = normalizada.trim();
         }
 
-        String resto = matcher.group(1).trim();
+        /*
+          PASO 4
+          Procesar tokens izquierdos
+        */
+        String[] tokens = izquierda.split("\\s+");
 
-        
-          //Separar identificador y resto
-         
-        String[] partes = resto.split("\\s+", 2);
-
-        if (partes.length < 2) {
+        if (tokens.length < 4) {
             errores.add(new ErrorLexico(
-                    501,
+                    504,
                     numeroLinea,
-                    "Falta el identificador en la declaración Dim"
+                    "Formato incorrecto en declaración Dim. Se esperaba: Dim nombre As TipoDato"
             ));
             return errores;
         }
 
-        String identificador = partes[0];
-        String despuesIdentificador = partes[1];
+        String identificador = tokens[1];
 
         ValidadorIdentificadores validadorIdentificadores =
                 new ValidadorIdentificadores();
 
+        // Validar identificador
         if (!validadorIdentificadores.esIdentificadorValido(identificador)) {
             errores.add(new ErrorLexico(
                     502,
@@ -98,6 +104,7 @@ public class ValidadorDim {
             return errores;
         }
 
+        // Palabra reservada como identificador
         if (PalabrasReservadas.esPalabraReservada(identificador)) {
             errores.add(new ErrorLexico(
                     503,
@@ -107,18 +114,8 @@ public class ValidadorDim {
             return errores;
         }
 
-        /*
-          PASO 3
-          Verificar palabra As y tipo
-         */
-        Pattern patternAs = Pattern.compile(
-                "^As\\s+([A-Za-z]+)(.*)$",
-                Pattern.CASE_INSENSITIVE
-        );
-
-        Matcher matcherAs = patternAs.matcher(despuesIdentificador.trim());
-
-        if (!matcherAs.find()) {
+        // Validar palabra AS
+        if (!tokens[2].equalsIgnoreCase("as")) {
             errores.add(new ErrorLexico(
                     505,
                     numeroLinea,
@@ -127,13 +124,9 @@ public class ValidadorDim {
             return errores;
         }
 
-        String tipoDato = matcherAs.group(1);
-        String restoAsignacion = matcherAs.group(2).trim();
+        String tipoDato = tokens[3];
 
-        /*
-          PASO 4
-          Validar tipo de dato
-         */
+        // Validar tipo de dato
         if (!esTipoDatoValido(tipoDato)) {
             errores.add(new ErrorLexico(
                     506,
@@ -146,21 +139,10 @@ public class ValidadorDim {
         /*
           PASO 5
           Validar asignación si existe
-         */
-        if (!restoAsignacion.isEmpty()) {
+        */
+        if (derecha != null) {
 
-            if (!restoAsignacion.startsWith("=")) {
-                errores.add(new ErrorLexico(
-                        507,
-                        numeroLinea,
-                        "Formato incorrecto en declaración Dim. Se esperaba '='"
-                ));
-                return errores;
-            }
-
-            String valor = restoAsignacion.substring(1).trim();
-
-            if (valor.isEmpty()) {
+            if (derecha.isEmpty()) {
                 errores.add(new ErrorLexico(
                         508,
                         numeroLinea,
@@ -169,9 +151,7 @@ public class ValidadorDim {
                 return errores;
             }
 
-            /*
-              Validar según tipo de dato
-             */
+            String valor = derecha;
 
             // ---------------- NUMÉRICOS ----------------
             if (tipoDato.equalsIgnoreCase("integer")
@@ -183,10 +163,12 @@ public class ValidadorDim {
 
                     operando = operando.trim();
 
+                    // Número literal
                     if (operando.matches("\\d+")) {
                         continue;
                     }
 
+                    // Variable existente
                     if (tablaSimbolos.existeVariable(operando)) {
 
                         if (!tablaSimbolos.esNumerica(operando)) {
