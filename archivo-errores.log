@@ -1,45 +1,130 @@
 0001 Imports System
 0002 Imports System.IO
-0003 	
-0004 ' Programa avanzado de ejemplo para anÃ¡lisis lÃ©xico
-0005 Module ProyectoVB
-0006     Sub Main()
-0007         'DeclaraciÃ³n de variables
-0008         Dim numero1 As Integer = 7
-0009         Dim numero2 As Double = 12.5
-0010         Dim texto As String = "Resultado: "
-0011         Dim esMayor As Boolean
-0012 
-0013         'Suma y comparaciÃ³n
-0014         Dim suma As Double = numero1 + numero2
-0015         esMayor = suma > 15
-0016 
-0017         'CondiciÃ³n anidada
-0018         If esMayor Then
-0019             Console.WriteLine(texto & "La suma es mayor que 15")
-0020         ElseIf suma = 15 Then
-0021             Console.WriteLine(texto & "La suma es exactamente 15")
-0022         Else
-0023             Console.WriteLine(texto & "La suma es menor que 15")
-0024         End If
-0025 
-0026        'Llamada a funciÃ³n con parÃ¡metros
-0027         	
-0028         producto = Multiplicar(numero1, numero2)
-0029         Console.WriteLine("El producto es: " & producto)
-0030 
-0031         ' Uso de operadores lÃ³gicos
-0032         If esMayor And producto > 50 Then
-0033             Console.WriteLine("La suma es mayor y el producto supera 50")
-0034         End If
-0035     End Sub
+0003 
+0004 ' ==============================
+0005 ' PRUEBAS ANALIZADOR LEXICO
+0006 ' ==============================
+0007 
+0008 Module ProyectoPruebas
+0009 
+0010     Sub Main()
+0011 
+0012         ' -------------------------
+0013         ' DECLARACIONES VALIDAS
+0014         ' -------------------------
+0015 
+0016         Dim numero1 As Integer =   10
+0017         Dim texto As String ="Hola"
+0018         Dim activo As Boolean = True
+0019         Dim byteVar As Byte = 5
+0020 
+0021         ' -------------------------
+0022         ' ESPACIOS EXTRA (DEBEN SER VALIDOS)
+0023         ' -------------------------
+0024 
+0025         Dim     numero2     As     Integer     =     20
+0026         Dim texto2 As String="Texto sin espacios"
+0027         Dim activo2    As Boolean=True
+0028 
+0029         ' -------------------------
+0030         ' CONCATENACION VALIDA
+0031         ' -------------------------
+0032 
+0033         Console.WriteLine("Resultado: " & numero1)
+0034         Console.WriteLine(texto & " Mundo")
+0035         Console.WriteLine("Suma: " & numero1 & numero2)
 0036 
-0037     ' FunciÃ³n para multiplicar dos nÃºmeros
-0038     Function Multiplicar(a As Double, b As Double) As Double
-0039         Return a * b
-0040     End Function
-0041 End Module
+0037         ' -------------------------
+0038         ' WRITE LINE CON ERRORES
+0039         ' -------------------------
+0040 
+0041         Console.WriteLine()
+0042         Console.WriteLine("Texto sin cerrar)
+0043         Console.WriteLine("Texto" & )
+0044 
+0045         ' -------------------------
+0046         ' TIPOS INCORRECTOS
+0047         ' -------------------------
+0048 
+0049         Dim errorTipo1 As Integer = "Texto"
+0050         Dim errorTipo2 As Boolean = 55
+0051         Dim errorTipo3 As Byte = 5000
+0052 
+0053         ' -------------------------
+0054         ' VARIABLES NO DECLARADAS
+0055         ' -------------------------
+0056 
+0057         resultado = numero1 + numero2
+0058         Console.WriteLine(resultado)
+0059 
+0060         ' -------------------------
+0061         ' IDENTIFICADORES INVALIDOS
+0062         ' -------------------------
+0063 
+0064         Dim 1numero As Integer = 5
+0065         Dim _numero As Integer = 6
+0066         Dim numero malo As Integer = 7
+0067 
+0068         ' -------------------------
+0069         ' PALABRAS RESERVADAS COMO VARIABLES
+0070         ' -------------------------
+0071 
+0072         Dim If As Integer = 5
+0073         Dim Module As String = "Error"
+0074 
+0075         ' -------------------------
+0076         ' OPERACIONES VALIDAS
+0077         ' -------------------------
+0078 
+0079         Dim suma As Integer = numero1 + numero2
+0080         Dim multi As Integer = numero1 * numero2
+0081 
+0082         ' -------------------------
+0083         ' OPERACIONES INVALIDAS
+0084         ' -------------------------
+0085 
+0086         Dim opError1 As Integer = numero1 + "hola"
+0087         Dim opError2 As Integer = numero1 + desconocida
+0088 
+0089         ' -------------------------
+0090         ' BOOLEAN VALIDOS
+0091         ' -------------------------
+0092 
+0093         Dim bandera As Boolean = False
+0094         Dim bandera2 As Boolean = True
+0095 
+0096         ' -------------------------
+0097         ' BOOLEAN INVALIDOS
+0098         ' -------------------------
+0099 
+0100         Dim banderaError As Boolean = numero1
+0101         Dim banderaError2 As Boolean = "true"
+0102 
+0103         ' -------------------------
+0104         ' LINEAS QUE NO DEBEN ANALIZARSE
+0105         ' -------------------------
+0106 
+0107         If numero1 > 5 Then
+0108             Console.WriteLine("Mayor")
+0109         Else
+0110             Console.WriteLine("Menor")
+0111         End If
+0112 
+0113     End Sub
+0114 
+0115 End Module
 
-Error 506. LÃ­nea 0009. Tipo de dato no vÃ¡lido en declaraciÃ³n Dim: Double
-Error 506. LÃ­nea 0014. Tipo de dato no vÃ¡lido en declaraciÃ³n Dim: Double
-Error 521. LÃ­nea 0028. Variable no declarada: producto
+Error 602. Línea 0041. Console.WriteLine no puede tener paréntesis vacíos
+Error 603. Línea 0042. Cadena de texto sin cierre de comillas en Console.WriteLine
+Error 510. Línea 0049. Operando no válido en expresión: "Texto"
+Error 512. Línea 0050. Valor Boolean no válido: 55
+Error 521. Línea 0057. Variable no declarada: resultado
+Error 502. Línea 0064. Identificador inválido en la declaración Dim: 1numero
+Error 502. Línea 0065. Identificador inválido en la declaración Dim: _numero
+Error 505. Línea 0066. Falta la palabra reservada 'As' en la declaración Dim
+Error 503. Línea 0072. Palabra reservada usada como identificador: If
+Error 503. Línea 0073. Palabra reservada usada como identificador: Module
+Error 510. Línea 0086. Operando no válido en expresión: "hola"
+Error 510. Línea 0087. Operando no válido en expresión: desconocida
+Error 512. Línea 0100. Valor Boolean no válido: numero1
+Error 512. Línea 0101. Valor Boolean no válido: "true"

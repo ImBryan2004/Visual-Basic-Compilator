@@ -9,8 +9,8 @@ import java.util.List;
 /*
   Esta clase es la encargada de generar el archivo de errores .log
   - Copia el contenido del archivo .vb respetando formato original
-  - Anteponen nÃºmeros de lÃ­nea con 4 dÃ­gitos
-  - Permite agregar errores lÃ©xicos al final
+  - Anteponen números de línea con 4 dígitos
+  - Permite agregar errores léxicos al final
  */
 
 public class GeneradorLog {
@@ -23,7 +23,7 @@ public class GeneradorLog {
     }
 
     
-     // Genera contenido base numerado
+     // Se genera el contenido base numerado
     
     public void generarContenidoBase(List<String> lineas) throws IOException {
 

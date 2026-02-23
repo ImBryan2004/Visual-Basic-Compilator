@@ -10,10 +10,10 @@ import java.util.List;
 /*
   Validador de la estructura Module en Visual Basic
   
-  Este componente forma parte de la etapa de an√°lisis l√©xico / validaci√≥n de patrones.
-  Su funci√≥n es verificar:
+  Este componente forma parte de la etapa de an·lisis lÈxico / validaciÛn de patrones.
+  Su funciÛn es verificar:
    - Que Imports aparezca antes de Module
-   - Que Module tenga un identificador v√°lido
+   - Que Module tenga un identificador v·lido
    - Que el formato sea exactamente: Module Identificador
    - Que exista un solo espacio entre Module e identificador
  */
@@ -30,7 +30,7 @@ public class ValidadorModule {
     }
 
     /*
-      M√©todo principal de validaci√≥n de la estructura Module
+      MÈtodo principal de validaciÛn de la estructura Module
      */
     public List<ErrorLexico> validar(String linea, int numeroLinea) {
 
@@ -52,7 +52,7 @@ public class ValidadorModule {
                 errores.add(new ErrorLexico(
                         704,
                         numeroLinea,
-                        "Solo puede existir una declaraci√≥n Module"
+                        "Solo puede existir una declaraciÛn Module"
                 ));
                 return errores;
             }
@@ -64,7 +64,7 @@ public class ValidadorModule {
                 errores.add(new ErrorLexico(
                         700,
                         numeroLinea,
-                        "La instrucci√≥n Module aparece antes de Imports"
+                        "La instrucciÛn Module aparece antes de Imports"
                 ));
             }
 
@@ -81,7 +81,7 @@ public class ValidadorModule {
                 return errores;
             }
 
-            // Verificar espacio √∫nico
+            // Verificar espacio ˙nico
             if (lineaLimpia.contains("  ")) {
                 errores.add(new ErrorLexico(
                         702,
@@ -97,7 +97,7 @@ public class ValidadorModule {
                 errores.add(new ErrorLexico(
                         703,
                         numeroLinea,
-                        "Identificador inv√°lido despu√©s de Module: " + identificador
+                        "Identificador inv·lido despuÈs de Module: " + identificador
                 ));
             }
         }
@@ -106,7 +106,7 @@ public class ValidadorModule {
     }
 
     
-     // Para saber si ya se declar√≥ Module
+     // Para saber si ya se declarÛ Module
 
     public boolean seDeclaroModule() {
         return moduleEncontrado;

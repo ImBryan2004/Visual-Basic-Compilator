@@ -6,17 +6,15 @@ import java.util.List;
 /*
   Validador de asignaciones generales
   
-  Esta clase valida l√≠neas del tipo:
-      variable = expresi√≥n
+  Esta clase valida lÌneas del tipo:
+      variable = expresiÛn
   
   Reglas:
   - La variable debe existir en la tabla de s√≠mbolos
-  - Debe ser un identificador v√°lido
+  - Debe ser un identificador v·lido
   - No puede ser palabra reservada
-  - Si no est√° declarada ‚Üí error
+  - Si no est· declarada error
   
-  Nota:
-  No se valida la expresi√≥n del lado derecho en Proyecto 1.
  */
 
 public class ValidadorAsignaciones {
@@ -28,14 +26,14 @@ public class ValidadorAsignaciones {
         this.tablaSimbolos = tablaSimbolos;
     }
 
-    // Valida una posible asignaci√≥n
+    // Valida una posible asignaciÛn
     public List<ErrorLexico> validar(String linea, int numeroLinea) {
 
         List<ErrorLexico> errores = new ArrayList<>();
 
         String lineaLimpia = linea.trim();
 
-        // Ignorar l√≠neas vac√≠as
+        // Ignorar lÌneas vacÌas
         if (lineaLimpia.isEmpty()) return errores;
 
         // Ignorar comentarios
@@ -58,7 +56,7 @@ public class ValidadorAsignaciones {
             return errores;
         }
 
-        // Debe contener '=' para ser asignaci√≥n
+        // Debe contener '=' para ser asignaciÛn
         int indiceIgual = lineaLimpia.indexOf('=');
 
         if (indiceIgual == -1) {
@@ -76,20 +74,20 @@ public class ValidadorAsignaciones {
 
         if (!validadorIdentificadores.esIdentificadorValido(izquierda)) {
 
-            // Si no es identificador v√°lido y no es palabra reservada ‚Üí error
+            // Si no es identificador v·lido y no es palabra reservada error
             if (!PalabrasReservadas.esPalabraReservada(izquierda)) {
 
                 errores.add(new ErrorLexico(
                         520,
                         numeroLinea,
-                        "Identificador inv√°lido en asignaci√≥n: " + izquierda
+                        "Identificador inv·lido en asignaciÛn: " + izquierda
                 ));
             }
 
             return errores;
         }
 
-        // Si es palabra reservada ‚Üí no analizar
+        // Si es palabra reservada no analizar
         if (PalabrasReservadas.esPalabraReservada(izquierda)) {
             return errores;
         }

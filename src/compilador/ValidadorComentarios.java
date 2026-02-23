@@ -6,10 +6,10 @@ import java.util.List;
 
 public class ValidadorComentarios {
     /*
-      En esta clase se valida si una l√≠nea es un comentario v√°lido en Visual Basic
+      En esta clase se valida si una lÌnea es un comentario v·lido en Visual Basic
       Regla del proyecto:
-      - SOLO es v√°lido si la l√≠nea inicia con '
-      - No se permiten comentarios al final de una l√≠nea de c√≥digo
+      - SOLO es v·lido si la lÌnea inicia con '
+      - No se permiten comentarios al final de una lÌnea de cÛdigo
      */
 
     public boolean esComentarioValido(String linea) {
@@ -19,8 +19,8 @@ public class ValidadorComentarios {
     }
 
     /*
-      Detecta comentarios inv√°lidos (inline)
-      Ejemplo inv√°lido:
+      Detecta comentarios inv·lidos (inline)
+      Ejemplo:
       Dim x As Integer = 10 ' comentario
      */
 
@@ -30,17 +30,17 @@ public class ValidadorComentarios {
 
         String lineaLimpia = linea.trim();
 
-        // Si es comentario v√°lido al inicio ‚Üí se ignora totalmente
+        // Si es comentario v·lido al inicio se ignora totalmente
         if (lineaLimpia.startsWith("'")) {
             return errores;
         }
 
-        // Si contiene ' pero no inicia con √©l ‚Üí error (comentario inline)
+        // Si contiene ' pero no inicia con la apostrofe error (comentario inline)
         if (linea.contains("'")) {
             errores.add(new ErrorLexico(
                     900,
                     numeroLinea,
-                    "Comentario inv√°lido: solo se permiten l√≠neas que inicien con ap√≥strofe (')"
+                    "Comentario inv·lido: solo se permiten lÌneas que inicien con apÛstrofe (')"
             ));
         }
 

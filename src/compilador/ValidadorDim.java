@@ -9,12 +9,12 @@ import java.util.regex.Pattern;
   Validador de declaraciones Dim en Visual Basic
   
   Esta clase se encarga de validar:
-   - La correcta declaraci贸n de variables
-   - El orden donde Dim debe ir despu茅s de Module
+   - La correcta declaraci髇 de variables
+   - El orden donde Dim debe ir despu閟 de Module
    - El formato y tipo de datos
-   - El registro en la tabla de s铆mbolos
+   - El registro en la tabla de s韒bolos
   
-  Esta sera una implementaci贸n incremental.
+  Esta sera una implementaci髇 incremental.
  */
 public class ValidadorDim {
 
@@ -48,7 +48,7 @@ public class ValidadorDim {
             errores.add(new ErrorLexico(
                     500,
                     numeroLinea,
-                    "La declaraci贸n Dim aparece antes de Module"
+                    "La declaraci髇 Dim aparece antes de Module"
             ));
             return errores;
         }
@@ -84,7 +84,7 @@ public class ValidadorDim {
             errores.add(new ErrorLexico(
                     504,
                     numeroLinea,
-                    "Formato incorrecto en declaraci贸n Dim. Se esperaba: Dim nombre As TipoDato"
+                    "Formato incorrecto en declaraci髇 Dim. Se esperaba: Dim nombre As TipoDato"
             ));
             return errores;
         }
@@ -99,7 +99,7 @@ public class ValidadorDim {
             errores.add(new ErrorLexico(
                     502,
                     numeroLinea,
-                    "Identificador inv谩lido en la declaraci贸n Dim: " + identificador
+                    "Identificador inv醠ido en la declaraci髇 Dim: " + identificador
             ));
             return errores;
         }
@@ -119,7 +119,7 @@ public class ValidadorDim {
             errores.add(new ErrorLexico(
                     505,
                     numeroLinea,
-                    "Falta la palabra reservada 'As' en la declaraci贸n Dim"
+                    "Falta la palabra reservada 'As' en la declaraci髇 Dim"
             ));
             return errores;
         }
@@ -131,14 +131,14 @@ public class ValidadorDim {
             errores.add(new ErrorLexico(
                     506,
                     numeroLinea,
-                    "Tipo de dato no v谩lido en declaraci贸n Dim: " + tipoDato
+                    "Tipo de dato no v醠ido en declaraci髇 Dim: " + tipoDato
             ));
             return errores;
         }
 
         /*
           PASO 5
-          Validar asignaci贸n si existe
+          Validar asignaci髇 si existe
         */
         if (derecha != null) {
 
@@ -146,14 +146,14 @@ public class ValidadorDim {
                 errores.add(new ErrorLexico(
                         508,
                         numeroLinea,
-                        "Falta valor u operaci贸n despu茅s del '='"
+                        "Falta valor u operaci髇 despu閟 del '='"
                 ));
                 return errores;
             }
 
             String valor = derecha;
 
-            // ---------------- NUM脡RICOS ----------------
+            // NUM蒖ICOS
             if (tipoDato.equalsIgnoreCase("integer")
                     || tipoDato.equalsIgnoreCase("byte")) {
 
@@ -163,7 +163,7 @@ public class ValidadorDim {
 
                     operando = operando.trim();
 
-                    // N煤mero literal
+                    // N鷐ero literal
                     if (operando.matches("\\d+")) {
                         continue;
                     }
@@ -175,7 +175,7 @@ public class ValidadorDim {
                             errores.add(new ErrorLexico(
                                     509,
                                     numeroLinea,
-                                    "La variable '" + operando + "' no es num茅rica"
+                                    "La variable '" + operando + "' no es num閞ica"
                             ));
                             return errores;
                         }
@@ -184,7 +184,7 @@ public class ValidadorDim {
                         errores.add(new ErrorLexico(
                                 510,
                                 numeroLinea,
-                                "Operando no v谩lido en expresi贸n: " + operando
+                                "Operando no v醠ido en expresi髇: " + operando
                         ));
                         return errores;
                     }
@@ -212,14 +212,14 @@ public class ValidadorDim {
                     errores.add(new ErrorLexico(
                             512,
                             numeroLinea,
-                            "Valor Boolean no v谩lido: " + valor
+                            "Valor Boolean no v醠ido: " + valor
                     ));
                     return errores;
                 }
             }
         }
 
-        // Registrar variable si todo fue v谩lido
+        // Registrar variable si todo fue v醠ido
         tablaSimbolos.registrarVariable(identificador, tipoDato);
 
         return errores;

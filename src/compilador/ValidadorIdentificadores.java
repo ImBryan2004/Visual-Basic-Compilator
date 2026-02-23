@@ -2,31 +2,31 @@
 package compilador;
 
 /*
-  Valida identificadores de Visual Basic carÃ¡cter por carÃ¡cter.
+  Se validan identificadores de Visual Basic carácter por carácter.
   
   Reglas del proyecto:
   - Debe iniciar con una letra (A-Z o a-z)
-  - Puede contener letras, nÃºmeros y guion bajo (_)
-  - No puede iniciar con nÃºmero
+  - Puede contener letras, números y guion bajo (_)
+  - No puede iniciar con número
   - No puede iniciar con _
   - No puede contener espacios
  */
 public class ValidadorIdentificadores {
 
-    /*
-      Valida si un identificador cumple las reglas lÃ©xicas
+    /**
+      Valida si un identificador cumple las reglas léxicas
      
       @param identificador cadena a validar
-      @return true si es vÃ¡lido, false si no
+      @return true si es válido, false si no
      */
     public boolean esIdentificadorValido(String identificador) {
 
-        // Regla 1: no null ni vacÃ­o
+        // Regla 1: no null ni vacío
         if (identificador == null || identificador.length() == 0) {
             return false;
         }
 
-        // Regla 2: primer carÃ¡cter debe ser letra
+        // Regla 2: primer carácter debe ser letra
         char primerCaracter = identificador.charAt(0);
 
         if (!esLetra(primerCaracter)) {
@@ -46,14 +46,14 @@ public class ValidadorIdentificadores {
     }
 
     
-     // Verifica si un carÃ¡cter es una letra
+     // Verifica si un carácter es una letra
      
     private boolean esLetra(char c) {
         return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
     }
 
     
-     // Verifica si un carÃ¡cter es un nÃºmero
+     // Verifica si un carácter es un número
      
     private boolean esNumero(char c) {
         return (c >= '0' && c <= '9');

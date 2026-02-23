@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("Directorio de ejecuciÃ³n: " + System.getProperty("user.dir"));
+        System.out.println("Directorio de ejecución: " + System.getProperty("user.dir"));
 
         List<String> lineas = new ArrayList<>();
 
@@ -22,7 +22,7 @@ public class Main {
         File[] archivosVB = carpeta.listFiles((dir, name) -> name.toLowerCase().endsWith(".vb"));
 
         if (archivosVB == null || archivosVB.length == 0) {
-            System.out.println("No se encontrÃ³ ningÃºn archivo .vb en el directorio actual.");
+            System.out.println("No se encontró ningún archivo .vb en el directorio actual.");
             return;
         }
 
@@ -30,7 +30,7 @@ public class Main {
         System.out.println("Archivo encontrado: " + archivo.getName());
 
         
-         // Leer archivo lÃ­nea por lÃ­nea respetando formato original
+         // Leer archivo línea por línea respetando formato original
          
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
 
@@ -46,12 +46,12 @@ public class Main {
         }
 
         
-         // Crear analizador lÃ©xico
+         // Crear analizador léxico
          
         AnalizadorLexico analizador = new AnalizadorLexico(lineas);
 
         
-         // Ejecutar anÃ¡lisis
+         // Ejecutar análisis
          
         List<ErrorLexico> errores = analizador.analizar();
 
@@ -62,7 +62,7 @@ public class Main {
 
             GeneradorLog generadorLog = new GeneradorLog(archivo.getName());
 
-            // Copiar contenido original con numeraciÃ³n
+            // Copiar contenido original con numeración
             generadorLog.generarContenidoBase(lineas);
 
             // Agregar errores al final
@@ -82,7 +82,7 @@ public class Main {
         System.out.println("=================================");
 
         if (errores.isEmpty()) {
-            System.out.println("CompilaciÃ³n exitosa. No se encontraron errores.");
+            System.out.println("Compilación exitosa. No se encontraron errores.");
         } else {
             System.out.println("Se encontraron " + errores.size() + " errores:\n");
 
@@ -92,12 +92,13 @@ public class Main {
         }
 
         
-         // Mostrar tabla de sÃ­mbolos
-         
+         // Mostrar tabla de símbolos (para pruebas)
+         /*
         System.out.println("\n=================================");
         System.out.println("TABLA DE SIMBOLOS");
         System.out.println("=================================");
 
         analizador.getTablaSimbolos().mostrarTabla();
+        */
     }
 }

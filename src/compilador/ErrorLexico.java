@@ -7,8 +7,8 @@ package compilador;
  */
 
 /*
-esta es la clase de errores la cual encapsula la informaciÃ³n
-de cada error encontrado durante el proceso de tokenizaciÃ³n.
+esta es la clase de errores la cual encapsula la información
+de cada error encontrado durante el proceso de tokenización.
 */
 public class ErrorLexico {
     
@@ -36,7 +36,7 @@ public class ErrorLexico {
 
     @Override
     public String toString() {
-        return "Error " + numero + ". LÃ­nea " + String.format("%04d", linea) + ". " + descripcion;
+        return "Error " + numero + ". Línea " + String.format("%04d", linea) + ". " + descripcion;
     }
     
 }

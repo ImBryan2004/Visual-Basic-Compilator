@@ -3,10 +3,10 @@ package compilador;
 import java.util.ArrayList;
 import java.util.List;
 /*
-  Analizador L√©xico.
+  Analizador LÈxico.
   
-  Recorre el c√≥digo fuente l√≠nea por l√≠nea y aplica
-  los validadores l√©xicos correspondientes.
+  Recorre el cÛdigo fuente lÌnea por lÌnea y aplica
+  los validadores lÈxicos correspondientes.
  */
 public class AnalizadorLexico {
 
@@ -23,9 +23,9 @@ public class AnalizadorLexico {
     private ValidadorAsignaciones validadorAsignaciones;
 
     /**
-      Constructor del analizador l√©xico
+      Constructor del analizador lÈxico
      
-      @param lineas l√≠neas del archivo .vb
+      @param lineas lÌneas del archivo .vb
      */
     public AnalizadorLexico(List<String> lineas) {
         this.lineas = lineas;
@@ -42,7 +42,7 @@ public class AnalizadorLexico {
     }
 
     /**
-      Ejecuta el an√°lisis l√©xico completo
+      Ejecuta el an·lisis lÈxico completo
      
       @return lista de errores encontrados
      */
@@ -60,7 +60,7 @@ public class AnalizadorLexico {
                     validadorComentarios.validar(linea, numeroLinea)
             );
 
-            // Si es comentario v√°lido, se ignora la l√≠nea
+            // Si es comentario v·lido, se ignora la l√≠nea
             if (validadorComentarios.esComentarioValido(linea)) {
                 continue;
             }

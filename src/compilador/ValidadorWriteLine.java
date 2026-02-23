@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
- // Valida sentencias Console.WriteLine segÃºn los requerimientos del proyecto.
+ // Valida sentencias Console.WriteLine según los requerimientos del proyecto.
  
 public class ValidadorWriteLine {
 
     /*
-      Valida una lÃ­nea que contenga Console.WriteLine
+      Valida una línea que contenga Console.WriteLine
      
-      @param linea lÃ­nea de cÃ³digo
-      @param numeroLinea nÃºmero de lÃ­nea en el archivo
-      @return lista de errores lÃ©xicos encontrados
+      @param linea línea de código
+      @param numeroLinea número de línea en el archivo
+      @return lista de errores léxicos encontrados
      */
     public List<ErrorLexico> validar(String linea, int numeroLinea) {
 
@@ -22,7 +22,7 @@ public class ValidadorWriteLine {
 
         String lineaLimpia = linea.trim();
 
-        // Solo analizar lÃ­neas que contengan Console.WriteLine
+        // Solo analizar líneas que contengan Console.WriteLine
         if (!lineaLimpia.toLowerCase().contains("console.writeline")) {
             return errores;
         }
@@ -31,25 +31,25 @@ public class ValidadorWriteLine {
         int indiceParentesisCierra = lineaLimpia.lastIndexOf(")");
 
         
-         // Regla 1 y 2: deben existir ambos parÃ©ntesis
+         // Regla 1 y 2: deben existir ambos paréntesis
         
         if (indiceParentesisAbre == -1 || indiceParentesisCierra == -1) {
             errores.add(new ErrorLexico(
                     600,
                     numeroLinea,
-                    "Faltan parÃ©ntesis en la sentencia Console.WriteLine"
+                    "Faltan paréntesis en la sentencia Console.WriteLine"
             ));
             return errores;
         }
 
        
-         // Extraer contenido dentro de los parÃ©ntesis
+         // Extraer contenido dentro de los paréntesis
          
         if (indiceParentesisCierra < indiceParentesisAbre) {
             errores.add(new ErrorLexico(
                     601,
                     numeroLinea,
-                    "Orden incorrecto de parÃ©ntesis en Console.WriteLine"
+                    "Orden incorrecto de paréntesis en Console.WriteLine"
             ));
             return errores;
         }
@@ -60,13 +60,13 @@ public class ValidadorWriteLine {
         ).trim();
 
         
-         // Regla 3: contenido no puede estar vacÃ­o
+         // Regla 3: contenido no puede estar vacío
          
         if (contenido.isEmpty()) {
             errores.add(new ErrorLexico(
                     602,
                     numeroLinea,
-                    "Console.WriteLine no puede tener parÃ©ntesis vacÃ­os"
+                    "Console.WriteLine no puede tener paréntesis vacíos"
             ));
             return errores;
         }

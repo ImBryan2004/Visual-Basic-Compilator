@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
-  Tabla de s√≠mbolos del analizador l√©xico.
+  Tabla de sÌmbolos del analizador lÈxico.
   
   Almacena las variables declaradas mediante Dim
   junto con su tipo de dato.
@@ -28,7 +28,7 @@ public class TablaSimbolos {
     }
 
     /**
-      Registra una variable en la tabla de s√≠mbolos
+      Registra una variable en la tabla de sÌmbolos
      
       @param nombre nombre del identificador
       @param tipo tipo de dato (Integer, String, Boolean, Byte)
@@ -58,11 +58,11 @@ public class TablaSimbolos {
     }
 
     /**
-      Verifica si una variable es num√©rica
+      Verifica si una variable es numÈrica
       (Integer o Byte)
      
       @param nombre nombre del identificador
-      @return true si es num√©rica
+      @return true si es numÈrica
      */
     public boolean esNumerica(String nombre) {
         String tipo = obtenerTipo(nombre);
@@ -75,19 +75,19 @@ public class TablaSimbolos {
     }
 
     /*
-      Limpia la tabla de s√≠mbolos
+      Se limpia la tabla de sÌmbolos
      */
     public void limpiar() {
         variables.clear();
     }
     
      /*
-      Muestra el contenido actual de la tabla de s√≠mbolos
+      Se muestra el contenido actual de la tabla de sÌmbolos
      */
     public void mostrarTabla() {
 
         if (variables.isEmpty()) {
-            System.out.println("La tabla de s√≠mbolos est√° vac√≠a.");
+            System.out.println("La tabla de sÌmbolos est· vacÌa.");
             return;
         }
 

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class LectorArchivo {
     
-     // Busca un archivo con extensiÃ³n .vb en el directorio donde se ejecuta el programa
+     // Busca un archivo con extensión .vb en el directorio donde se ejecuta el programa
     
     public File obtenerArchivoVB() {
 

@@ -30,7 +30,7 @@ public class ValidadorEndModule {
 
         String lineaLimpia = linea.trim();
 
-        // Si no es End Module, no se valida aquÃ­
+        // Si no es End Module, no se valida aquí
         if (!lineaLimpia.toLowerCase().startsWith("end module")) {
             return errores;
         }
@@ -52,11 +52,11 @@ public class ValidadorEndModule {
             errores.add(new ErrorLexico(
                     801,
                     numeroLinea,
-                    "End Module aparece sin una declaraciÃ³n previa de Module"
+                    "End Module aparece sin una declaración previa de Module"
             ));
         }
 
-        // Separar tokens manualmente
+        // Se separan los tokens manualmente
         String[] partes = lineaLimpia.split(" ");
 
         if (partes.length != 2) {
@@ -68,7 +68,7 @@ public class ValidadorEndModule {
             return errores;
         }
 
-        // Verificar espacio Ãºnico
+        // Verificar espacio único
         if (lineaLimpia.contains("  ")) {
             errores.add(new ErrorLexico(
                     803,
@@ -87,12 +87,12 @@ public class ValidadorEndModule {
             ));
         }
 
-        // Debe ser la Ãºltima lÃ­nea del archivo
+        // Debe ser la última línea del archivo
         if (!esUltimaLinea) {
             errores.add(new ErrorLexico(
                     805,
                     numeroLinea,
-                    "End Module debe ser la Ãºltima lÃ­nea del archivo"
+                    "End Module debe ser la última línea del archivo"
             ));
         }
 
